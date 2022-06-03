@@ -1,8 +1,12 @@
-# The Client Side of profiled-notes-json-server repo
-
 ## profiled-notes-react-redux
 
 v0.0.2
+
+=======
+
+## profiled-notes-react-redux
+
+> > > > > > > 37c1a8a9cfa87180c6176b256090fad349885ce9
 
 # Getting Started with Create React App
 
