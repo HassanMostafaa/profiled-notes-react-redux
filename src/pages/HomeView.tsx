@@ -4,12 +4,16 @@ import {
   deleteCurrentUserAccount,
   signOutCurrentUser,
 } from "../redux/currentUser/currentUserSlice";
+import { NewNoteForm } from "../components/NewNoteForm";
+import { HomeViewNote } from "../components/HomeViewNote";
 
 export const HomeView: React.FC<any> = () => {
   const dispatch = useDispatch<any>();
   const { userName, email, createdAt, id, password, notes } = useSelector(
     (state: any) => state.currentUser.currentUser
   );
+  const orderedNotes = [...notes].reverse();
+
   const navigate = useNavigate();
   const loading = useSelector((state: any) => state.currentUser.loading);
   const signOutHandler = () => {
@@ -33,29 +37,17 @@ export const HomeView: React.FC<any> = () => {
     <div className="container">
       {loading && "LOADING..."}
       <h1>HomeView</h1>
-      <p>{userName}</p>
-      <p>{email}</p>
-      <p>{createdAt}</p>
-      <p>{id}</p>
-      <p>{password}</p>
+      <br></br>
+      <NewNoteForm />
       <div style={{ padding: "10px 0px" }}>
         <h3>Notes</h3>
-        {notes.map((note: any, ix: number) => (
-          <div
-            key={ix}
-            style={{
-              padding: "5px",
-              border: "1px solid grey",
-              margin: "10px 0",
-            }}
-          >
-            <p>{note.noteTitle}</p>
-            <p>{note.noteBody}</p>
-          </div>
+        {orderedNotes.map((note: any, ix: number) => (
+          <HomeViewNote key={ix} note={note} />
         ))}
       </div>
       <button onClick={signOutHandler}>Sign Out</button>
       <button onClick={deleteAccountHandler}>Delete Account</button>
+      <br></br> <br></br>
     </div>
   );
 };

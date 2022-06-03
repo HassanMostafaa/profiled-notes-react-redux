@@ -10,27 +10,33 @@ export const SignUpForm: React.FC = () => {
 
   const signUpHandler = async (e: any) => {
     e.preventDefault();
-    setLoading(true);
-    const { signUpEmail, signUpUserName, signUpPassword } = e.target;
-    try {
-      const res = await axios.post(
-        "https://profiled-notes-json-server.herokuapp.com/users",
-        {
-          id: uuidv4(),
-          email: signUpEmail.value,
-          password: signUpPassword.value,
-          userName: signUpUserName.value,
-          createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
-          notes: [],
-        }
-      );
 
-      console.log(res);
-      setLoading(false);
-      navigate("/");
-    } catch (error: any) {
-      setLoading(false);
-      alert(error);
+    if (
+      e.target.signUpPassword.value === e.target.reEnterSignUpPassword.value
+    ) {
+      setLoading(true);
+      const { signUpEmail, signUpUserName, signUpPassword } = e.target;
+      try {
+        const res = await axios.post(
+          "https://profiled-notes-json-server.herokuapp.com/users",
+          {
+            id: uuidv4(),
+            email: signUpEmail.value,
+            password: signUpPassword.value,
+            userName: signUpUserName.value,
+            createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
+            notes: [],
+          }
+        );
+
+        setLoading(false);
+        navigate("/");
+      } catch (error: any) {
+        setLoading(false);
+        alert(error);
+      }
+    } else {
+      alert("passwords doesn't match");
     }
   };
 
@@ -47,7 +53,7 @@ export const SignUpForm: React.FC = () => {
         <p>Email Address</p>
         <input
           autoComplete="off"
-          type="text"
+          type="email"
           placeholder="Ex:example@example.com"
           name="signUpEmail"
         />
@@ -69,6 +75,7 @@ export const SignUpForm: React.FC = () => {
         <input
           autoComplete="off"
           type="password"
+          name="reEnterSignUpPassword"
           placeholder="Re-Enter Password"
         />
         <br />

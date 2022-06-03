@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-export const LoginForm: React.FC<any> = ({ signInHandler }) => {
+export const LoginForm: React.FC<any> = ({ signInHandler, errorMsg }) => {
   const navigate = useNavigate();
 
   const loading = useSelector((state: any) => state.currentUser.loading);
@@ -15,7 +15,7 @@ export const LoginForm: React.FC<any> = ({ signInHandler }) => {
         <input
           autoComplete="none"
           name="signInEmail"
-          type="text"
+          type="email"
           placeholder="Ex:example@example.com"
         />
         <p>Password</p>
@@ -30,6 +30,8 @@ export const LoginForm: React.FC<any> = ({ signInHandler }) => {
           <input type="checkbox" name="stayLogged" id="" />
           <label htmlFor="stayLogged"> Remember This User</label>
         </div>
+
+        <p style={{ color: "red" }}>{errorMsg}</p>
 
         <input type="submit" value="Sign In" />
         <p>- or -</p>

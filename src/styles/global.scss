@@ -2,3 +2,22 @@
   width: 80%;
   margin: 0 auto;
 }
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .logo {
+    h1 {
+      letter-spacing: 5px;
+    }
+  }
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    a,
+    p {
+      margin: 0 20px;
+    }
+  }
+}
