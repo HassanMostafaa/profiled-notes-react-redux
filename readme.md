@@ -2,7 +2,7 @@
 
 ## profiled-notes-react-redux
 
-v0.0.3
+`v0.0.3`
 
 ### color :
 
