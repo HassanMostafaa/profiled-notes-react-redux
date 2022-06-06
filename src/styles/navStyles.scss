@@ -1,0 +1,37 @@
+.userInfo {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.userInfoOptions {
+  position: absolute;
+  top: 100%;
+  background-color: #f4f4f4;
+  opacity: 0;
+  padding: 10px;
+  min-width: 140px;
+  animation: userInfoFade 1s forwards;
+
+  button {
+    border: none;
+    border-bottom: 1px solid grey;
+    background-color: transparent;
+    min-width: 100%;
+    padding: 10px 0;
+    text-align: left;
+    cursor: pointer;
+  }
+  :last-child {
+    border: none;
+  }
+}
+@keyframes userInfoFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

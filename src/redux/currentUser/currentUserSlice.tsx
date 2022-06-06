@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { argv } from "process";
+import { useNavigate } from "react-router-dom";
 
 const mainURL = "https://profiled-notes-json-server.herokuapp.com/users";
+// const navigate = useNavigate();
 
 const initialState = {
   logged: false,
@@ -64,12 +65,15 @@ export const addNoteToCurrentUser: any = createAsyncThunk(
       /* notes contains the element we're looking for */
       alert("the exact same note with title and body's already created");
     } else {
-      console.log("new note");
       try {
         const res = await axios.patch(`${mainURL}/${arg.currentUser.id}`, {
           notes: [
             ...arg.currentUser.notes,
-            { noteTitle: arg.note.noteTitle, noteBody: arg.note.noteBody },
+            {
+              noteTitle: arg.note.noteTitle,
+              noteBody: arg.note.noteBody,
+              noteColor: arg.note.noteColor,
+            },
           ],
         });
         const data = await res.data;
@@ -112,9 +116,17 @@ export const loginCurrentUser: any = createAsyncThunk(
       const loggedCurrentUser = user.find(
         (x: any) => x.email === arg.email && x.password === arg.password
       );
+
+      // localStorage.setItem("email", arg.email);
+      // localStorage.setItem("password", arg.password);
+
       if (loggedCurrentUser === undefined) {
         return null;
       } else {
+        if (arg.rememberMe) {
+          localStorage.setItem("email", arg.email);
+          localStorage.setItem("password", arg.password);
+        }
         return loggedCurrentUser;
       }
     } catch (error) {
@@ -131,6 +143,7 @@ export const currentUserSlice = createSlice({
       state.currentUser = [];
       state.logged = false;
       state.loading = false;
+      localStorage.clear();
     },
   },
   extraReducers: {

@@ -1,7 +1,7 @@
 import { LoginForm } from "./../components/LoginForm";
 import { useDispatch, useSelector } from "react-redux";
 import { loginCurrentUser } from "./../redux/currentUser/currentUserSlice";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const SignIn = () => {
   const { logged, loading } = useSelector((state: any) => state.currentUser);
@@ -10,18 +10,16 @@ export const SignIn = () => {
 
   const signInHandler = async (e: any) => {
     e.preventDefault();
-
-    // const rememberUser = e.target.stayLogged.checked;
-    //for remember me function  e.target.stayLogged.checked if(true) save it to localstorage
-
     const email = e.target.signInEmail.value;
     const password = e.target.signInPassword.value;
+    const rememberMe = e.target.stayLogged.checked;
 
     if (!!email && !!password) {
       await dispatch(
         loginCurrentUser({
           email,
           password,
+          rememberMe,
         })
       );
 
@@ -29,12 +27,13 @@ export const SignIn = () => {
         setErrorMsg("Invalid Email Address or Password");
         setTimeout(() => {
           setErrorMsg("");
-        }, 2000);
+        }, 6000);
       }
     } else {
-      alert("Invalid Input values");
+      setErrorMsg("Invalid Input values");
     }
   };
+
   return (
     <div>
       <div className="SignIn-container">

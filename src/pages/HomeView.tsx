@@ -17,7 +17,6 @@ export const HomeView: React.FC<any> = () => {
   const navigate = useNavigate();
   const loading = useSelector((state: any) => state.currentUser.loading);
   const signOutHandler = () => {
-    console.log("Sign Out Btn");
     dispatch(signOutCurrentUser());
   };
 

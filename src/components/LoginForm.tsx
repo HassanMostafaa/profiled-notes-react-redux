@@ -29,6 +29,9 @@ export const LoginForm: React.FC<any> = ({ signInHandler, errorMsg }) => {
         <div style={{ margin: "10px 0" }}>
           <input type="checkbox" name="stayLogged" id="" />
           <label htmlFor="stayLogged"> Remember This User</label>
+          {/* <p>
+            In case of refreshing the page you will be automatically loggedin
+          </p> */}
         </div>
 
         <p style={{ color: "red" }}>{errorMsg}</p>

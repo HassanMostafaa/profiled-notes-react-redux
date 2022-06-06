@@ -1,12 +1,21 @@
-## profiled-notes-react-redux
-
-v0.0.2
-
-=======
+# The Client Side of profiled-notes-json-server repo
 
 ## profiled-notes-react-redux
 
-> > > > > > > 37c1a8a9cfa87180c6176b256090fad349885ce9
+v0.0.3
+
+### color :
+
+lemon : #FFF2B5 default text area
+highlited lemon : #FFB901
+interface UserI {
+id: String;
+email: String;
+password: String;
+userName: String;
+notes: Array<any>; title, body, color
+createdAt: String; time with moment library
+}
 
 # Getting Started with Create React App
 

@@ -15,12 +15,13 @@ export const HomeViewNote: React.FC<any> = ({ note }) => {
     <>
       <div
         style={{
-          padding: "5px",
+          padding: "20px",
           border: "1px solid grey",
           margin: "10px 0",
+          background: note.noteColor,
         }}
       >
-        <p>{note.noteTitle}</p>
+        <h4>{note.noteTitle}</h4>
         <p>{note.noteBody}</p>
         <button onClick={deleteNoteHandler}>Delete Note</button>
       </div>

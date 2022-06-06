@@ -7,6 +7,7 @@ import moment from "moment";
 export const SignUpForm: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [signUpNameView, setSignUpNameView] = useState("");
 
   const signUpHandler = async (e: any) => {
     e.preventDefault();
@@ -17,20 +18,31 @@ export const SignUpForm: React.FC = () => {
       setLoading(true);
       const { signUpEmail, signUpUserName, signUpPassword } = e.target;
       try {
-        const res = await axios.post(
-          "https://profiled-notes-json-server.herokuapp.com/users",
-          {
-            id: uuidv4(),
-            email: signUpEmail.value,
-            password: signUpPassword.value,
-            userName: signUpUserName.value,
-            createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
-            notes: [],
-          }
+        const res = await axios.get(
+          `https://profiled-notes-json-server.herokuapp.com/users?email=${signUpEmail.value}`
         );
-
-        setLoading(false);
-        navigate("/");
+        const data: any = await res.data;
+        console.log(data);
+        if (data[0] === undefined) {
+          const res = await axios.post(
+            "https://profiled-notes-json-server.herokuapp.com/users",
+            {
+              id: uuidv4(),
+              email: signUpEmail.value,
+              password: signUpPassword.value,
+              userName: signUpNameView,
+              createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
+              notes: [],
+            }
+          );
+          const data = await res.data;
+          console.log("First Time Email");
+          setLoading(false);
+          navigate("/");
+        } else {
+          alert("Email already Used");
+          setLoading(false);
+        }
       } catch (error: any) {
         setLoading(false);
         alert(error);
@@ -50,6 +62,16 @@ export const SignUpForm: React.FC = () => {
         autoComplete="off"
       >
         <h1>Sign Up Form</h1>
+        <p>User Name</p>
+        <input
+          autoComplete="off"
+          type="text"
+          placeholder="Ex:ExampleText"
+          name="signUpUserName"
+          value={signUpNameView}
+          onChange={(e) => setSignUpNameView(e.target.value.trim())}
+        />
+        <p>{signUpNameView.trim()}</p>
         <p>Email Address</p>
         <input
           autoComplete="off"
@@ -57,13 +79,7 @@ export const SignUpForm: React.FC = () => {
           placeholder="Ex:example@example.com"
           name="signUpEmail"
         />
-        <p>User Name</p>
-        <input
-          autoComplete="off"
-          type="text"
-          placeholder="Ex:ExampleText"
-          name="signUpUserName"
-        />
+
         <p>Password</p>
         <input
           autoComplete="off"
