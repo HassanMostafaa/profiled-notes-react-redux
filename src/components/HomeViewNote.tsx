@@ -8,12 +8,15 @@ export const HomeViewNote: React.FC<any> = ({ note }) => {
     (state: any) => state.currentUser.currentUser
   );
 
+  const { noteBody, noteTitle } = note;
+
   const deleteNoteHandler = () => {
     dispatch(deleteNoteFromCurrentUser({ id, note, notes, password, email }));
   };
   return (
     <>
       <div
+        className="homeViewNote"
         style={{
           padding: "20px",
           border: "1px solid grey",
@@ -21,8 +24,8 @@ export const HomeViewNote: React.FC<any> = ({ note }) => {
           background: note.noteColor,
         }}
       >
-        <h4>{note.noteTitle}</h4>
-        <p>{note.noteBody}</p>
+        <h4>{noteTitle}</h4>
+        <pre>{noteBody}</pre>
         <button onClick={deleteNoteHandler}>Delete Note</button>
       </div>
     </>

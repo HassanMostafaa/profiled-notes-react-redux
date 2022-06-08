@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const mainURL = "https://profiled-notes-json-server.herokuapp.com/users";
 // const navigate = useNavigate();
@@ -98,6 +97,7 @@ export const deleteCurrentUserAccount: any = createAsyncThunk(
   "delCurrentUserAcc",
   async (arg: any, { rejectWithValue }) => {
     try {
+      localStorage.clear();
       const res = await axios.delete(`${mainURL}/${arg.id}`);
       const data = await res.data;
       return data;
@@ -117,13 +117,16 @@ export const loginCurrentUser: any = createAsyncThunk(
         (x: any) => x.email === arg.email && x.password === arg.password
       );
 
-      // localStorage.setItem("email", arg.email);
-      // localStorage.setItem("password", arg.password);
+      localStorage.setItem("email", arg.email);
+      localStorage.setItem("password", arg.password);
 
       if (loggedCurrentUser === undefined) {
+        localStorage.clear();
+
         return null;
       } else {
         if (arg.rememberMe) {
+          localStorage.setItem("rememberMe", "true");
           localStorage.setItem("email", arg.email);
           localStorage.setItem("password", arg.password);
         }
@@ -143,7 +146,11 @@ export const currentUserSlice = createSlice({
       state.currentUser = [];
       state.logged = false;
       state.loading = false;
-      localStorage.clear();
+      localStorage.setItem("autoLog", "false");
+      if (localStorage.getItem("rememberMe") !== "true") {
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+      }
     },
   },
   extraReducers: {

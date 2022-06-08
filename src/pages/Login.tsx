@@ -1,7 +1,7 @@
 import { LoginForm } from "./../components/LoginForm";
 import { useDispatch, useSelector } from "react-redux";
 import { loginCurrentUser } from "./../redux/currentUser/currentUserSlice";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export const SignIn = () => {
   const { logged, loading } = useSelector((state: any) => state.currentUser);
@@ -13,6 +13,7 @@ export const SignIn = () => {
     const email = e.target.signInEmail.value;
     const password = e.target.signInPassword.value;
     const rememberMe = e.target.stayLogged.checked;
+    localStorage.setItem("autoLog", "true");
 
     if (!!email && !!password) {
       await dispatch(

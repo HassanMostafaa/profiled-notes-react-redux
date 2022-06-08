@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signOutCurrentUser } from "../redux/currentUser/currentUserSlice";
+import {
+  signOutCurrentUser,
+  deleteCurrentUserAccount,
+} from "../redux/currentUser/currentUserSlice";
 import "../styles/navStyles.scss";
 
-export const Nav = () => {
+export const Nav: React.FC = () => {
   const currentUser = useSelector((state: any) =>
     state.currentUser.currentUser ? state.currentUser.currentUser : null
   );
@@ -49,7 +52,23 @@ export const Nav = () => {
                     >
                       Sign Out
                     </button>
-                    <button>Delete Account</button>
+                    <button
+                      onClick={() => {
+                        const sure = window.confirm(
+                          "Are you sure you want to Delete Your Account?"
+                        );
+                        if (sure) {
+                          dispatch(
+                            deleteCurrentUserAccount({ id: currentUser.id })
+                          );
+                          navigate("/");
+                        } else {
+                          alert("Account deletion canceled");
+                        }
+                      }}
+                    >
+                      Delete Account
+                    </button>
                   </div>
                 )}
               </div>

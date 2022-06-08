@@ -16,13 +16,13 @@ export const SignUpForm: React.FC = () => {
       e.target.signUpPassword.value === e.target.reEnterSignUpPassword.value
     ) {
       setLoading(true);
-      const { signUpEmail, signUpUserName, signUpPassword } = e.target;
+      const { signUpEmail, signUpPassword } = e.target;
       try {
         const res = await axios.get(
           `https://profiled-notes-json-server.herokuapp.com/users?email=${signUpEmail.value}`
         );
         const data: any = await res.data;
-        console.log(data);
+        // console.log(data);
         if (data[0] === undefined) {
           const res = await axios.post(
             "https://profiled-notes-json-server.herokuapp.com/users",
@@ -35,8 +35,8 @@ export const SignUpForm: React.FC = () => {
               notes: [],
             }
           );
-          const data = await res.data;
-          console.log("First Time Email");
+          await res.data;
+          // console.log("First Time Email");
           setLoading(false);
           navigate("/");
         } else {
@@ -54,14 +54,9 @@ export const SignUpForm: React.FC = () => {
 
   return (
     <>
-      {" "}
       {loading && " LOADING ..."}
-      <form
-        className="sign-up-form"
-        onSubmit={signUpHandler}
-        autoComplete="off"
-      >
-        <h1>Sign Up Form</h1>
+      <h1>Sign Up Form</h1>
+      <form className="sign-up-form" onSubmit={signUpHandler}>
         <p>User Name</p>
         <input
           autoComplete="off"
@@ -71,7 +66,7 @@ export const SignUpForm: React.FC = () => {
           value={signUpNameView}
           onChange={(e) => setSignUpNameView(e.target.value.trim())}
         />
-        <p>{signUpNameView.trim()}</p>
+
         <p>Email Address</p>
         <input
           autoComplete="off"
@@ -87,6 +82,7 @@ export const SignUpForm: React.FC = () => {
           placeholder="Password"
           name="signUpPassword"
         />
+
         <p>Re-Enter Password</p>
         <input
           autoComplete="off"
@@ -94,12 +90,14 @@ export const SignUpForm: React.FC = () => {
           name="reEnterSignUpPassword"
           placeholder="Re-Enter Password"
         />
-        <br />
-        <br />
-        <input type="submit" value="Sign Up" />
-        <p>- or -</p>
-        <button onClick={() => navigate("/")}>Already have an Account?</button>
+
+        <div>
+          <br />
+          <input type="submit" value="Sign Up" />
+        </div>
       </form>
+      <p>- or -</p>
+      <button onClick={() => navigate("/")}>Already have an Account?</button>
     </>
   );
 };

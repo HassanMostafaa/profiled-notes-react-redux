@@ -11,6 +11,15 @@ export const NewNoteForm: React.FC<any> = () => {
     (state: any) => state.currentUser.currentUser
   );
 
+  const colors = [
+    { hex: "#fff2b5", class: "lemon" },
+    { hex: "#c7efc4", class: "grass" },
+    { hex: "#f9f9f9", class: "clean" },
+    { hex: "#c4e5ff", class: "skyBlue" },
+    { hex: "#dec6fb", class: "pinky" },
+    { hex: "#FFC3F4", class: "rose" },
+  ];
+
   const addNoteHandler = async (e: any) => {
     e.preventDefault();
     let noteTitle =
@@ -41,60 +50,18 @@ export const NewNoteForm: React.FC<any> = () => {
         <div className="colorSelector">
           <p>Color Selector</p>
           <div className="colors">
-            <div
-              onClick={changeNoteColor}
-              data-color="#fff2b5"
-              className={
-                noteColor === "#fff2b5"
-                  ? "color lemon selectedColor"
-                  : "color lemon"
-              }
-            ></div>
-            <div
-              onClick={changeNoteColor}
-              data-color="#c7efc4"
-              className={
-                noteColor === "#c7efc4"
-                  ? "color grass selectedColor"
-                  : "color grass"
-              }
-            ></div>
-            <div
-              onClick={changeNoteColor}
-              data-color="#f9f9f9"
-              className={
-                noteColor === "#f9f9f9"
-                  ? "color clean selectedColor"
-                  : "color clean"
-              }
-            ></div>
-            <div
-              onClick={changeNoteColor}
-              data-color="#c4e5ff"
-              className={
-                noteColor === "#c4e5ff"
-                  ? "color skyBlue selectedColor"
-                  : "color skyBlue"
-              }
-            ></div>
-            <div
-              onClick={changeNoteColor}
-              data-color="#dec6fb"
-              className={
-                noteColor === "#dec6fb"
-                  ? "color pinky selectedColor"
-                  : "color pinky"
-              }
-            ></div>
-            <div
-              onClick={changeNoteColor}
-              data-color="#FFC3F4"
-              className={
-                noteColor === "#FFC3F4"
-                  ? "color rose selectedColor"
-                  : "color rose"
-              }
-            ></div>
+            {colors.map((color, ix) => (
+              <div
+                key={ix}
+                onClick={changeNoteColor}
+                data-color={color.hex}
+                className={
+                  noteColor === color.hex
+                    ? `color ${color.class} selectedColor`
+                    : `color ${color.class}`
+                }
+              ></div>
+            ))}
           </div>
         </div>
         <h1>New Note</h1>
@@ -105,7 +72,8 @@ export const NewNoteForm: React.FC<any> = () => {
           name={"newNoteTitle"}
         />
         <p>Note Content</p>
-        <input type="text" placeholder="Note" name={"newNoteBody"} />
+        {/* <input type="text" placeholder="Note" name={"newNoteBody"} /> */}
+        <textarea name="newNoteBody" id="" rows={5} cols={22}></textarea>
         <br />
         <input type="submit" value="Add Note" />
       </form>

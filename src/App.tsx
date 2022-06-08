@@ -18,7 +18,8 @@ function App() {
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     const storedPassword = localStorage.getItem("password");
-    if (storedEmail !== null && storedPassword !== null) {
+    const autoLog = localStorage.getItem("autoLog");
+    if (storedEmail !== null && storedPassword !== null && autoLog === "true") {
       dispatch(
         loginCurrentUser({
           email: storedEmail,
@@ -26,7 +27,7 @@ function App() {
         })
       );
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App container">

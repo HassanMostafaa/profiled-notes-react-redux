@@ -26,6 +26,7 @@ export const Account: React.FC = () => {
       alert("Account deletion canceled");
     }
   };
+
   const signOutHandler = () => {
     dispatch(signOutCurrentUser());
     navigate("/");
