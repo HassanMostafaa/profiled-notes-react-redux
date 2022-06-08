@@ -2,19 +2,19 @@
 
 ## profiled-notes-react-redux
 
-v0.0.3
+`v0.0.3`
 
 ### color :
 
-lemon : #FFF2B5 default text area
-highlited lemon : #FFB901
-interface UserI {
-id: String;
-email: String;
-password: String;
-userName: String;
-notes: Array<any>; title, body, color
-createdAt: String; time with moment library
+- lemon : #FFF2B5 default text area
+- highlited lemon : #FFB901
+- interface UserI {
+- id: String;
+- email: String;
+- password: String;
+- userName: String;
+- notes: Array<any>; title, body, color
+- createdAt: String; time with moment library
 }
 
 # Getting Started with Create React App
